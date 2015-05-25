@@ -5,6 +5,11 @@
 #include "environment.hh"
 #include "expressions.hh"
 
+/*
+ * Command class that represents the commands that can be performed. This 
+ * is the base class and provides an abstraction of what all commands should
+ * be able to do
+ */
 class Command {
 public:
     Command() {}
@@ -12,6 +17,9 @@ public:
     virtual void run (Environment &env) const = 0;
 };
 
+/*
+ * Evaluates an expression and then prints out the result
+ */
 class PrintCommand : public Command {
     Expression *exp;
 public:
@@ -28,6 +36,9 @@ public:
     }
 };
 
+/*
+ * Evaluates an expression then sets a symbol to that value 
+ */
 class AssignCommand : public Command {
     Symbol *sym;
     Expression *exp;

@@ -5,6 +5,10 @@
 #include <cassert>
 #include "environment.hh"
 
+/*
+ * An expression is anything that evaluates to a specific value. This is the
+ * base class, which declares what every single expression will provide
+ */
 class Expression {
 public:
     Expression() {}
@@ -12,18 +16,21 @@ public:
     virtual double evaluate(const Environment &env) const = 0;
 };
 
+/* 
+ * Value represents any literal numeric value specified in an expression
+ */
 class Value : public Expression {
     double val;
-//    Value(double val) : val(val) {}
 public: 
-    Value(double vval) {
-        val = vval;
-    }
+    Value(double val) : val(val) {}
     double evaluate(const Environment &env) const {
         return (double)val;
     }
 };
 
+/*
+ * Represents a symbol in an expression
+ */
 class Symbol : public Expression {
     string name;
 public:
@@ -34,6 +41,9 @@ public:
     }
 };
 
+/*
+ * unary operator class has on expression that it operates on
+ */
 class UnaryOperator : public Expression {
     Expression *rhs;
 public:
@@ -47,6 +57,9 @@ public:
     Expression *getRHS() const { return rhs; }
 };
 
+/*
+ * binary operator has a lhs and rhs expression
+ */
 class BinaryOperator : public Expression {
     Expression *lhs;
     Expression *rhs;
@@ -67,6 +80,9 @@ public:
     Expression *getRHS() const { return rhs; }
 };
 
+/*
+ * Negates an expression
+ */
 class NegOper : public UnaryOperator {
 public:
     NegOper(Expression *pRHS) : UnaryOperator(pRHS) {}
@@ -75,6 +91,9 @@ public:
     }
 };
 
+/*
+ * Adds two expressions
+ */
 class AddOper : public BinaryOperator {
 public:
     AddOper(Expression *pLHS, Expression *pRHS) : BinaryOperator(pLHS, pRHS){}
@@ -90,6 +109,9 @@ public:
     }
 };
 
+/*
+ * Subtracts two expressions
+ */
 class SubOper : public BinaryOperator {
 public:
     SubOper(Expression *pLHS, Expression *pRHS) : BinaryOperator(pLHS, pRHS){}
@@ -106,6 +128,9 @@ public:
 
 };
 
+/*
+ * Multiplies two expressions
+ */
 class MulOper : public BinaryOperator {
 public:
     MulOper(Expression *pLHS, Expression *pRHS) : BinaryOperator(pLHS, 
@@ -123,6 +148,9 @@ public:
 
 };
 
+/*
+ * Divides two expressions
+ */
 class DivOper : public BinaryOperator {
 public:
     DivOper(Expression *pLHS, Expression *pRHS) : BinaryOperator(pLHS, pRHS){}
