@@ -99,13 +99,8 @@ public:
     AddOper(Expression *pLHS, Expression *pRHS) : BinaryOperator(pLHS, pRHS){}
     double evaluate(const Environment &env) const {
         double rhs_val = getRHS()->evaluate(env);
-        if (rhs_val == 0) {
-            throw runtime_error("divide by zero");
-        }
-        else {
-            double lhs_val = getLHS()->evaluate(env);
-            return lhs_val + rhs_val;
-        }
+        double lhs_val = getLHS()->evaluate(env);
+        return lhs_val + rhs_val;
     }
 };
 
@@ -117,13 +112,8 @@ public:
     SubOper(Expression *pLHS, Expression *pRHS) : BinaryOperator(pLHS, pRHS){}
     double evaluate(const Environment &env) const {
         double rhs_val = getRHS()->evaluate(env);
-        if (rhs_val == 0) {
-            throw runtime_error("divide by zero");
-        }
-        else {
-            double lhs_val = getLHS()->evaluate(env);
-            return lhs_val - rhs_val;
-        }
+        double lhs_val = getLHS()->evaluate(env);
+        return lhs_val - rhs_val;
     }
 
 };
@@ -137,13 +127,8 @@ public:
         pRHS) {}
     double evaluate(const Environment &env) const {
         double rhs_val = getRHS()->evaluate(env);
-        if (rhs_val == 0) {
-            throw runtime_error("divide by zero");
-        }
-        else {
-            double lhs_val = getLHS()->evaluate(env);
-            return lhs_val * rhs_val;
-        }
+        double lhs_val = getLHS()->evaluate(env);
+        return lhs_val * rhs_val;
     }
 
 };
